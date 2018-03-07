@@ -1,0 +1,35 @@
+---
+# https://raw.githubusercontent.com/kubernetes/kubernetes/v1.5.2/cluster/addons/fluentd-elasticsearch/es-controller.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: crontab-cleanup-ela-data
+  namespace: "kube-system"
+  labels:
+    k8s-app: crontab-cleanup-ela-data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: crontab-cleanup-ela-data
+  template:
+    metadata:
+      labels:
+        k8s-app: crontab-cleanup-ela-data
+    spec:
+      containers:
+      - image: "192.168.0.1/library/crontab-cleanup-ela-data:1.0"
+        name: crontab-cleanup-ela-data
+        resources:
+          # need more cpu upon initialization, therefore burstable class
+          limits:
+            cpu: 100m
+            memory: 50Mi
+          requests:
+            cpu: 100m
+            memory: 30Mi
+        env:
+        - name: ELA_STORAGE_LIFT
+          value: "3"
+
+

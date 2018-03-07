@@ -1,0 +1,6 @@
+#!/bin/bash
+
+envtpl /usr/bin/del-esindex.sh.tpl
+
+chmod 777 /usr/bin/del-esindex.sh
+crond -n
