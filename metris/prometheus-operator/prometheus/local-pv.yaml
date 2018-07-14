@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus
+  labels:
+     app: prometheus   
+  annotations:
+    volume.alpha.kubernetes.io/node-affinity: |
+      {
+         "requiredDuringSchedulingIgnoredDuringExecution": {
+           "nodeSelectorTerms": [
+            { "matchExpressions": [
+               { "key": "kubernetes.io/hostname",
+                 "operator": "In",
+                 "values": ["node3"]
+               }
+           ]}
+         ]}
+      }
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: local-storage
+  hostPath:
+    path: /var/lib/docker/prometheus
+
