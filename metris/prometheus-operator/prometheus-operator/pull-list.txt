@@ -1,0 +1,4 @@
+docker pull quay.io/coreos/configmap-reload:v0.0.1
+docker pull quay.io/prometheus/prometheus:v2.3.1
+docker pull quay.io/coreos/prometheus-config-reloader:v0.0.2
+docker pull improbable/thanos:v0.1.0-rc.2
