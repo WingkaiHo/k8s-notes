@@ -75,15 +75,8 @@ $kubectl -n kube-system get secret admin-token-bz6ml -o jsonpath={.data.token}|b
 最后把字符串拷贝到界面.
 
 
+### kubernetes 1.10版本无法打开dashbaord
 
-
-
-
-
-
-
-
-
-
-
-
+```
+$ kubectl create clusterrolebinding cluster-admin-fordashboard --clusterrole=cluster-admin --user=system:serviceaccount:kube-system:kubernetes-dashboard
+```
