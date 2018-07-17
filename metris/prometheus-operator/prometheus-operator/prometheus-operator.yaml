@@ -15,12 +15,12 @@ spec:
       containers:
       - args:
         - --kubelet-service=kube-system/kubelet
-        - --config-reloader-image=172.25.52.217:5000/quay.io/coreos/configmap-reload:v0.0.1
+        - --config-reloader-image=quay.io/coreos/configmap-reload:v0.0.1
         ### prometheus default version v2.3.1
-        - --prometheus-default-base-image=172.25.52.217:5000/quay.io/prometheus/prometheus
-        - --prometheus-config-reloader=172.25.52.217:5000/quay.io/coreos/prometheus-config-reloader:v0.22.0
-        - --thanos-default-base-image=172.25.52.217:5000/improbable/thanos
-        image: 172.25.52.217:5000/quay.io/coreos/prometheus-operator:v0.22.0
+        - --prometheus-default-base-image=quay.io/prometheus/prometheus
+        - --prometheus-config-reloader=quay.io/coreos/prometheus-config-reloader:v0.22.0
+        - --thanos-default-base-image=improbable/thanos
+        image: quay.io/coreos/prometheus-operator:v0.22.0
         name: prometheus-operator
         ports:
         - containerPort: 8080
