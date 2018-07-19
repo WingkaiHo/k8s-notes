@@ -1,3 +1,0 @@
-container_memory_max_usage_bytes{namespace="heyongjia", pod_name=~"^jenkins.*" }
-
-sum by (container_name)(rate(container_cpu_usage_seconds_total{image!="",container_name!="POD",pod_name=~"^jenkins.*"}[1m]))
