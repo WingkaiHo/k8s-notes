@@ -1,0 +1,53 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: k8s
+  namespace: monitoring
+  labels:
+    prometheus: k8s
+spec:
+  replicas: 1
+  version: v2.3.1
+  retention: 7d  # Prometheus 时序数据保存时间（24小时， 一天以后数据就被清空, 保存7天retention: 7d)
+  serviceAccountName: prometheus-k8s
+  nodeSelector:
+    classify: cpu
+  serviceMonitorSelector:
+    matchExpressions:
+    - {key: k8s-app, operator: Exists}
+  ruleSelector:
+    matchLabels:
+      role: prometheus-rulefiles
+      prometheus: k8s
+  resources:
+    limits:
+      memory: 8Gi
+      cpu:    8000m
+    requests:
+      memory: 1Gi
+      cpu:    1000m
+  securityContext:
+    runAsUser: 0
+  storage:
+    volumeClaimTemplate:
+      metadata:
+        name: prometheus-data
+        annotations:
+           volume.beta.kubernetes.io/storage-class: "ceph-rbd"
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 100Gi
+  alerting:
+    alertmanagers:
+    - namespace: monitoring
+      name: alertmanager-main
+      port: web
+  podMetadata:
+    labels:
+      thanos-peer: 'true'
+  thanos:
+    peers: thanos-peers.monitoring.svc:10900   
+    version: v0.1.0-rc.2 
