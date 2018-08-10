@@ -1,17 +1,3 @@
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: grafan-ceph-fast
-  namespace: monitoring
-provisioner: ceph.com/rbd
-parameters:
-  monitors: 10.18.19.91:6789
-  adminId: admin
-  adminSecretName: ceph-secret
-  adminSecretNamespace: monitoring
-  userSecretName: ceph-secret
-  pool: grafana-dev
-  userId: admin
 ---
 apiVersion: apps/v1beta1
 kind: StatefulSet
@@ -91,9 +77,9 @@ spec:
   - metadata:
       name: grafana-storage
       annotations:
-        volume.beta.kubernetes.io/storage-class: grafan-ceph-fast
+        volume.beta.kubernetes.io/storage-class: ceph-rbd
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 10Gi
+          storage: 50Gi

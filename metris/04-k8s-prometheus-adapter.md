@@ -217,7 +217,7 @@ spec:
                   resource: limits.cpu
               - path: "cpu_request"
                 resourceFieldRef:
-                  containerName: podinfod
+                  containerName: pthodinfod
                   resource: requests.cpu
               - path: "mem_limit"
                 resourceFieldRef:

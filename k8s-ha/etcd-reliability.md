@@ -161,4 +161,8 @@ kubespary 建议
 50节点内:
 etcd 和 master 共用 3台机器
 
+50节点以上
+etcd 使用3台机器
+masster 使用5台机器
+
 

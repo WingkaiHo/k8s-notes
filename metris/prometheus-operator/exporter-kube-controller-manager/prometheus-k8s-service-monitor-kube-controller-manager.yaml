@@ -9,7 +9,7 @@ spec:
   jobLabel: k8s-app
   endpoints:
   - port: http-metrics
-    interval: 30s
+    interval: 60s
   selector:
     matchLabels:
       k8s-app: kube-controller-manager

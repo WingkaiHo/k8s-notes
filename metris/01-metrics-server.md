@@ -52,10 +52,10 @@ $ kubectl create -f deploy/1.8+/
 
 也可以直接通过 kubectl 命令来访问这些 API，比如
 ```
-- kubectl get --raw apis/metrics.k8s.io/v1beta1/nodes
-- kubectl get --raw apis/metrics.k8s.io/v1beta1/pods
-- kubectl get --raw apis/metrics.k8s.io/v1beta1/nodes/<node-name>
-- kubectl get --raw apis/metrics.k8s.io/v1beta1/namespaces/<namespace-name>/pods/<pod-name>
+- kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes
+- kubectl get --raw /apis/metrics.k8s.io/v1beta1/pods
+- kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes/<node-name>
+- kubectl get --raw /apis/metrics.k8s.io/v1beta1/namespaces/<namespace-name>/pods/<pod-name>
 ```
 也可以通过下面命令
 ```
