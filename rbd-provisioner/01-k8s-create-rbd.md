@@ -121,7 +121,8 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: rbd-provisioner
-    namespace: default
+    #必须和rbd-provider在一个namespace
+    namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: rbd-provisioner
