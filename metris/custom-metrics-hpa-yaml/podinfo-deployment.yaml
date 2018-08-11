@@ -1,0 +1,66 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: podinfo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: podinfo
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9898'
+        prometheus.io/path: '/metrics'
+    spec:
+      containers:
+      - name: podinfod
+        image: stefanprodan/podinfo:0.0.9
+        imagePullPolicy: Always
+        command:
+          - ./podinfo
+          - -port=9898
+          - -logtostderr=true
+          - -v=2
+        ports:
+        - containerPort: 9898
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 9898
+          initialDelaySeconds: 1
+          periodSeconds: 2
+          failureThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 9898
+          initialDelaySeconds: 1
+          periodSeconds: 3
+          failureThreshold: 2
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "10m"
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: podinfo-nodeport
+  labels:
+    app: podinfo
+spec:
+  type: NodePort
+  ports:
+    - name: http-metrics
+      port: 9898
+      targetPort: 9898
+      nodePort: 31190
+      protocol: TCP
+  selector:
+    app: podinfo
+

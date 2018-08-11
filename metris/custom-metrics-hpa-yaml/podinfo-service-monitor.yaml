@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: podinfo
+  namespace: monitoring
+  labels:
+    k8s-app: podinfo
+spec:
+  jobLabel: k8s-app
+  endpoints:
+  - port: http-metrics
+    interval: 60s
+    honorLabels: true
+  selector:
+    matchLabels:
+      app: podinfo
+  namespaceSelector:
+    matchNames:
+    - default

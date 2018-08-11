@@ -1,0 +1,22 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache-hap1
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+  - type: Object
+    object:
+      metricName: http_requests
+      target:
+        kind: Service
+        name: podinfo-nodeport
+        apiVersion: v1
+      #targetValue: 100m
+      targetAverageValue: 100m
+
