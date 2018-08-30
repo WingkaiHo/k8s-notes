@@ -18,5 +18,5 @@ spec:
         name: podinfo-nodeport
         apiVersion: v1
       #targetValue: 100m
-      targetAverageValue: 100m
+      targetValue: 100m
 

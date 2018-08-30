@@ -21,7 +21,7 @@ spec:
         runAsUser: 0
       containers:
       - name: custom-metrics-apiserver
-        image: 172.25.52.217:5000/directxman12/k8s-prometheus-adapter-amd64
+        image: directxman12/k8s-prometheus-adapter-amd64
         args:
         - /adapter
         - --secure-port=6443
