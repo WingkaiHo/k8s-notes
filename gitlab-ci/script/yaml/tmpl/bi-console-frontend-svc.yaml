@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlabci-demo-nodejs-frontend
+  labels:
+    system: bi-console
+    app: gitlabci-demo-nodejs-frontend
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    system: bi-console
+    app: gitlabci-demo-nodejs-frontend

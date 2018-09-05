@@ -1,0 +1,40 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: gitlabci-demo-nodejs-frontend-canary
+  labels:
+    system: bi-console
+    app: gitlabci-demo-nodejs-frontend
+    track: canary
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  #is an optional field that specifies the number of old ReplicaSets to retain to allow rollback. Its ideal value depends on the frequency and stability of new Deployments
+  revisionHistoryLimit: 10
+  #is an optional field that specifies the minimum number of seconds for which a newly created Pod should be ready without any of its containers crashing
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 10%
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        system: bi-console
+        app: gitlabci-demo-nodejs-frontend 
+        track: canary
+    spec:
+      containers:
+      - name: bi-console-frontend
+        image: private-registry.k8s.tuputech.com/tupu/gitlabci-demo-nodejs-frontend:ab095e9b
+        ports:
+        - containerPort: 80
+        # defines the health checking
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 10Mi
+
